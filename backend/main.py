@@ -10,13 +10,13 @@ def my_index():
 def get_query_from_react():
     data=request.get_json()
     print(data)
-    response="Whatever you wish too return"
+    response="True"
     return response
 @app.route('/signin', methods = ['POST'])
 def get_from_react():
     data=request.get_json()
     print(data)
-    response="Whatever you wish too return"
+    response="True"
     return response
 
 app.run(debug=True,host='127.0.0.1',port=5000)
