@@ -5,10 +5,10 @@ import axios from 'axios';
 import './Form.css';
 
   
-  const initialState = {firstName: "",lastName: "",
-  email: "", phoneNumber: "",
-  password: "",errors: { firstName: '', lastName: '', email: '', phoneNumber: '', password: '',common: '' },loggedIn:false
+  const initialState = {name: "",email: "", phoneNumber: "",disabled:true,
+  password: "",selectValue:"",errors: { name: '', email: '', phoneNumber: '', password: '',common: '' },loggedIn:false
    };
+   
    
 export default class Form extends React.Component {
   constructor(props) {
@@ -28,10 +28,9 @@ export default class Form extends React.Component {
     
   }
     state= {
-        firstName: "",lastName: "",
-        email: "", phoneNumber: "",
-        password: "",errors: { firstName: '', lastName: '', email: '', phoneNumber: '', password: '',common:'' },
-        loggedIn:false
+      name: "",email: "", phoneNumber: "",
+        password: "",selectValue:"email-id",errors: { name: '', email: '', phoneNumber: '', password: '',common:'' },
+        loggedIn:false,disabled:true
     };
      
     change = e => {
@@ -39,7 +38,16 @@ export default class Form extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
          });
-        
+        /* console.log(this.state.selectValue);
+         if(this.state.selectValue==="phone-Number")
+         {
+         this.setState({disabled:false});
+         console.log(this.state.selectValue);
+        }
+        else{
+          this.setState({disabled:true});
+        }
+        console.log(this.state.disabled);*/
        /* let nam = e.target.name;
         let val = e.target.value;
         let errors=this.state.errors;
@@ -64,36 +72,51 @@ export default class Form extends React.Component {
     //this.setState({errors, [nam]: val}, ()=> {  console.log(errors)})
         
     };
-    
+    /*checkSaveButtton() {
+     
+      return (this.state.disabled ? "disabled" : "");
+    }*/
+     
     handleValidation = () => {
-        const { firstName,lastName,email, phoneNumber,password} = this.state;
-        let errors = {  firstName: '', lastName: '', email: '', phoneNumber: '', password: '',common: ''};
+        const { name,email, phoneNumber,password} = this.state;
+        let errors = { name: '', email: '', phoneNumber: '', password: '',common: ''};
         var r=RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})");
-        let v= r.test(password.value);
+        let v= r.test(this.state.password);
         var re =  RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
         let val= re.test(email.value);
-        if (email && !val) {
-          errors.email = 'Enter a valid email-id';
+        var letters =RegExp(/[a-zA-Z][a-zA-Z ]+[a-zA-Z]$/);
+        let v1= letters.test(this.state.name);
+        if (!email ){//&& !val) {
+          errors.email = 'Field cannot be empty';
         }
-        if (!firstName) {
-          errors.firstName = 'FirstName cannot be empty';
+        //else if(!val)
+        //{
+         // errors.email = 'Enter a valid email-id';
+        //}
+        if (!name) {
+          errors.name = 'Name cannot be empty';
         }
-        if (!lastName) {
-          errors.lastName = 'LastName cannot be empty';
+        else if(!v1)
+        {
+          errors.name='Name can contain only alphabets';
         }
-        if(!email && !phoneNumber)
-        errors.common="You need to enter atleast one out of Phone Number and Email-id";
-        if (phoneNumber && !Number(phoneNumber)) {
+       /* if(!email && !phoneNumber)
+        errors.common="You need to enter atleast one out of Phone Number and Email-id";*/
+        if(this.state.selectValue=="phoneNumber"){
+        if (!phoneNumber)
+        errors.phoneNumber="Please enter your Phone number ";
+        else if (!Number(phoneNumber)) {
           errors.phoneNumber="It can contain only digits";
         }
+      }
         if(!password)
         {
         errors.password='Password cannot be null';
         }
-        /*else if (!v) {
-          errors.password = 'Password must contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.The length should be atleast 8 and atmost 20';
-        }*/
-        if (errors.firstName.length>0||errors.email.length>0||errors.phoneNumber.length>0||errors.lastName.length>0,errors.password.length>0||errors.common.length>0)
+        //else if (!v) {
+        //  errors.password = 'Password must contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.The length should be atleast 8 and atmost 20';
+        //}
+        if (errors.name.length>0||errors.email.length>0||errors.phoneNumber.length>0||errors.password.length>0||errors.common.length>0)
         {
         this.setState({ errors });
         return false;
@@ -115,16 +138,24 @@ export default class Form extends React.Component {
         username: this.state.email
     })
 */
-          let d = this.state.firstName
-        
-          axios({
+/*var d = {
+  firstName: this.state.firstName,
+  lastName:this.state.lastName,
+  password:this.state.password,
+  email:this.state.email,
+  phoneNumber:this.state.phoneNumber
+}*/
+axios({
             method: 'post',
             url: 'http://localhost:5000/signup',
             crossorigin: true,
             withCredentials: false,
-            data:{fd} // True otherwise I receive another error
+            data:{  name: this.state.name,
+              password:this.state.password,
+              email:this.state.email,
+              phoneNumber:this.state.phoneNumber} // True otherwise I receive another error
           }).then(response => {
-            if (response) {
+            if (response.data=="True") {
               console.log( response);
               this.setState({loggedIn:true});
               console.log(this.state.loggedIn);
@@ -145,10 +176,11 @@ export default class Form extends React.Component {
             this.setState(initialState);
     }
     };
+    
     render () {
         const {errors} = this.state;
         if (this.state.loggedIn == true) {
-          return <Redirect to="/Home" />;
+          return <Redirect to="/signin" />;
         }
           return (
           <div className='wrapper'>
@@ -158,23 +190,13 @@ export default class Form extends React.Component {
               
                 <div>
                 <input
-                 name="firstName"
-                 placeholder="First name " value={this.state.firstName} 
+                 name="name"
+                 placeholder="Name " value={this.state.name} 
                  onChange={e => this.change(e)} 
                 /> 
                 
                 <br />
-                {errors.firstName.length > 0 && <span className='error' style={{color: "red"}}>{this.state.errors.firstName}</span>}
-                <br />
-                </div>
-                <div>
-                <input
-                 name="lastName"
-                 placeholder="Last name " value={this.state.lastName} 
-                 onChange={e => this.change(e)} 
-                /> 
-                <br />
-                {errors.lastName.length > 0 && <span className='error' style={{color: "red"}}>{this.state.errors.lastName}</span>}
+                {errors.name.length > 0 && <span className='error' style={{color: "red"}}>{this.state.errors.name}</span>}
                 <br />
                 </div>
                 <div>
@@ -188,11 +210,6 @@ export default class Form extends React.Component {
                 <br /> 
                 </div> 
                 <div>
-                <h1>Receive notifications via:</h1>
-                <br />
-                </div>
-                <p class="big">
-                <div>
                 <input
                  name="email"
                  placeholder="Email-id" value={this.state.email} 
@@ -202,12 +219,23 @@ export default class Form extends React.Component {
                 {errors.email != '' && <span className='error' style={{color: "red"}}>{this.state.errors.email}</span>}
                 <br />
                 </div>
-                OR
-                </p>
-                <br />
                 <div>
-                <input
+                <h1>Receive notifications via:</h1>
+                <br />
+                 <select 
+                 name="selectValue"
+                 value={this.state.selectValue} 
+                 onChange={e => this.change(e)} >
+                 <option value="email-id" selected="selected">Email</option>
+                 <option value="phone-Number">Phone Number</option>
+                 </select>
+                 <br />
+                 </div>      
+                 <div>
+                  
+                 <input
                  name="phoneNumber"
+                 disabled = {(this.state.disabled ? "disabled" : "")}
                  placeholder="Phone Number " value={this.state.phoneNumber} 
                  onChange={e => this.change(e)} 
                 /> 
