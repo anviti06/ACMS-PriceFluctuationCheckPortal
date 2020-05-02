@@ -122,7 +122,7 @@ export default class Form extends React.Component {
             url: 'http://localhost:5000/signup',
             crossorigin: true,
             withCredentials: false,
-            data:{d} // True otherwise I receive another error
+            data:{fd} // True otherwise I receive another error
           }).then(response => {
             if (response) {
               console.log( response);
