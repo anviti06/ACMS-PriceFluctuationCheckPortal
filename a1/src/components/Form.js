@@ -115,25 +115,16 @@ export default class Form extends React.Component {
         username: this.state.email
     })
 */
-/*var d = {
-  firstName: this.state.firstName,
-  lastName:this.state.lastName,
-  password:this.state.password,
-  email:this.state.email,
-  phoneNumber:this.state.phoneNumber
-}*/
-axios({
+          let d = this.state.firstName
+        
+          axios({
             method: 'post',
             url: 'http://localhost:5000/signup',
             crossorigin: true,
             withCredentials: false,
-            data:{  firstName: this.state.firstName,
-              lastName:this.state.lastName,
-              password:this.state.password,
-              email:this.state.email,
-              phoneNumber:this.state.phoneNumber} // True otherwise I receive another error
+            data:{d} // True otherwise I receive another error
           }).then(response => {
-            if (response.data=="True") {
+            if (response) {
               console.log( response);
               this.setState({loggedIn:true});
               console.log(this.state.loggedIn);
@@ -157,7 +148,7 @@ axios({
     render () {
         const {errors} = this.state;
         if (this.state.loggedIn == true) {
-          return <Redirect to="/signin" />;
+          return <Redirect to="/Home" />;
         }
           return (
           <div className='wrapper'>

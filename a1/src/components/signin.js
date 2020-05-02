@@ -34,15 +34,16 @@ export default class signin extends React.Component {
     };
     onSubmit = e => {
         e.preventDefault();
+        let d = this.state.userName
+        
         axios({
           method: 'post',
           url: 'http://localhost:5000/signin',
           crossorigin: true,
           withCredentials: false,
-          data:{email: this.state.userName,
-            password:this.state.password} // True otherwise I receive another error
+          data:{d} // True otherwise I receive another error
         }).then(response => {
-          if (response.data=="True") {
+          if (response.ok) {
             console.log( response);
             this.setState({loggedIn:true});
             console.log(this.state.loggedIn);
@@ -72,7 +73,7 @@ export default class signin extends React.Component {
                 <input
                  type="userName"
                  name="userName"
-                 placeholder="Email " value={this.state.userName} 
+                 placeholder="USERNAME " value={this.state.userName} 
                  onChange={e => this.change(e)} 
                 /> 
                 </div>
@@ -88,7 +89,7 @@ export default class signin extends React.Component {
                 </div>
                 
                 <br />  
-                <button type="submit" onClick ={e => this.onSubmit(e)}>Login</button>
+                <button onClick ={e => this.onSubmit(e)}>Login</button>
                 </p>
             </form>
             </div>
