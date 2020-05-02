@@ -113,9 +113,9 @@ export default class Form extends React.Component {
         {
         errors.password='Password cannot be null';
         }
-        //else if (!v) {
-        //  errors.password = 'Password must contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.The length should be atleast 8 and atmost 20';
-        //}
+        else if (!v) {
+          errors.password = 'Password must contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.The length should be atleast 8 and atmost 20';
+        }
         if (errors.name.length>0||errors.email.length>0||errors.phoneNumber.length>0||errors.password.length>0||errors.common.length>0)
         {
         this.setState({ errors });

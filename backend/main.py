@@ -71,14 +71,14 @@ def signup():
     email = data['email']
     password = data['password']
     name = data['name']
-    #phoneNo = data['phoneNo']
+    phoneNo = data['phoneNumber']
         
     user = User.query.filter_by(email=email).first()
 
     if user:
         return "User already exists"
 
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256') ) #, phoneNo = phoneNo)
+    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), phoneNo = phoneNo)
 
     db.session.add(new_user)
     db.session.commit()
@@ -86,11 +86,10 @@ def signup():
     return "True"
 
 #Logout Portal#
-@app('/logout')
+@app.route('/logout')
 @login_required
 def logout():
     logout_user()
-
 
 
 
