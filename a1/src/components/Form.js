@@ -5,10 +5,10 @@ import axios from 'axios';
 import './Form.css';
 
   
-  const initialState = {name: "",email: "", phoneNumber: "",disabled:true,
-  password: "",selectValue:"",errors: { name: '', email: '', phoneNumber: '', password: '',common: '' },loggedIn:false
+  const initialState = {firstName: "",lastName: "",
+  email: "", phoneNumber: "",
+  password: "",errors: { firstName: '', lastName: '', email: '', phoneNumber: '', password: '',common: '' },loggedIn:false
    };
-   
    
 export default class Form extends React.Component {
   constructor(props) {
@@ -28,9 +28,10 @@ export default class Form extends React.Component {
     
   }
     state= {
-      name: "",email: "", phoneNumber: "",
-        password: "",selectValue:"email-id",errors: { name: '', email: '', phoneNumber: '', password: '',common:'' },
-        loggedIn:false,disabled:true
+        firstName: "",lastName: "",
+        email: "", phoneNumber: "",
+        password: "",errors: { firstName: '', lastName: '', email: '', phoneNumber: '', password: '',common:'' },
+        loggedIn:false
     };
      
     change = e => {
@@ -38,16 +39,7 @@ export default class Form extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
          });
-        /* console.log(this.state.selectValue);
-         if(this.state.selectValue==="phone-Number")
-         {
-         this.setState({disabled:false});
-         console.log(this.state.selectValue);
-        }
-        else{
-          this.setState({disabled:true});
-        }
-        console.log(this.state.disabled);*/
+        
        /* let nam = e.target.name;
         let val = e.target.value;
         let errors=this.state.errors;
@@ -72,51 +64,36 @@ export default class Form extends React.Component {
     //this.setState({errors, [nam]: val}, ()=> {  console.log(errors)})
         
     };
-    /*checkSaveButtton() {
-     
-      return (this.state.disabled ? "disabled" : "");
-    }*/
-     
+    
     handleValidation = () => {
-        const { name,email, phoneNumber,password} = this.state;
-        let errors = { name: '', email: '', phoneNumber: '', password: '',common: ''};
+        const { firstName,lastName,email, phoneNumber,password} = this.state;
+        let errors = {  firstName: '', lastName: '', email: '', phoneNumber: '', password: '',common: ''};
         var r=RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})");
-        let v= r.test(this.state.password);
+        let v= r.test(password.value);
         var re =  RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
         let val= re.test(email.value);
-        var letters =RegExp(/[a-zA-Z][a-zA-Z ]+[a-zA-Z]$/);
-        let v1= letters.test(this.state.name);
-        if (!email && !val) {
-          errors.email = 'Field cannot be empty';
-        }
-        else if(!val)
-        {
+        if (email && !val) {
           errors.email = 'Enter a valid email-id';
         }
-        if (!name) {
-          errors.name = 'Name cannot be empty';
+        if (!firstName) {
+          errors.firstName = 'FirstName cannot be empty';
         }
-        else if(!v1)
-        {
-          errors.name='Name can contain only alphabets';
+        if (!lastName) {
+          errors.lastName = 'LastName cannot be empty';
         }
-       /* if(!email && !phoneNumber)
-        errors.common="You need to enter atleast one out of Phone Number and Email-id";*/
-        if(this.state.selectValue=="phoneNumber"){
-        if (!phoneNumber)
-        errors.phoneNumber="Please enter your Phone number ";
-        else if (!Number(phoneNumber)) {
+        if(!email && !phoneNumber)
+        errors.common="You need to enter atleast one out of Phone Number and Email-id";
+        if (phoneNumber && !Number(phoneNumber)) {
           errors.phoneNumber="It can contain only digits";
         }
-      }
         if(!password)
         {
         errors.password='Password cannot be null';
         }
-        else if (!v) {
+        /*else if (!v) {
           errors.password = 'Password must contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.The length should be atleast 8 and atmost 20';
-        }
-        if (errors.name.length>0||errors.email.length>0||errors.phoneNumber.length>0||errors.password.length>0||errors.common.length>0)
+        }*/
+        if (errors.firstName.length>0||errors.email.length>0||errors.phoneNumber.length>0||errors.lastName.length>0,errors.password.length>0||errors.common.length>0)
         {
         this.setState({ errors });
         return false;
@@ -150,7 +127,8 @@ axios({
             url: 'http://localhost:5000/signup',
             crossorigin: true,
             withCredentials: false,
-            data:{  name: this.state.name,
+            data:{  firstName: this.state.firstName,
+              lastName:this.state.lastName,
               password:this.state.password,
               email:this.state.email,
               phoneNumber:this.state.phoneNumber} // True otherwise I receive another error
@@ -176,7 +154,6 @@ axios({
             this.setState(initialState);
     }
     };
-    
     render () {
         const {errors} = this.state;
         if (this.state.loggedIn == true) {
@@ -190,13 +167,23 @@ axios({
               
                 <div>
                 <input
-                 name="name"
-                 placeholder="Name " value={this.state.name} 
+                 name="firstName"
+                 placeholder="First name " value={this.state.firstName} 
                  onChange={e => this.change(e)} 
                 /> 
                 
                 <br />
-                {errors.name.length > 0 && <span className='error' style={{color: "red"}}>{this.state.errors.name}</span>}
+                {errors.firstName.length > 0 && <span className='error' style={{color: "red"}}>{this.state.errors.firstName}</span>}
+                <br />
+                </div>
+                <div>
+                <input
+                 name="lastName"
+                 placeholder="Last name " value={this.state.lastName} 
+                 onChange={e => this.change(e)} 
+                /> 
+                <br />
+                {errors.lastName.length > 0 && <span className='error' style={{color: "red"}}>{this.state.errors.lastName}</span>}
                 <br />
                 </div>
                 <div>
@@ -210,6 +197,11 @@ axios({
                 <br /> 
                 </div> 
                 <div>
+                <h1>Receive notifications via:</h1>
+                <br />
+                </div>
+                <p class="big">
+                <div>
                 <input
                  name="email"
                  placeholder="Email-id" value={this.state.email} 
@@ -219,23 +211,12 @@ axios({
                 {errors.email != '' && <span className='error' style={{color: "red"}}>{this.state.errors.email}</span>}
                 <br />
                 </div>
-                <div>
-                <h1>Receive notifications via:</h1>
+                OR
+                </p>
                 <br />
-                 <select 
-                 name="selectValue"
-                 value={this.state.selectValue} 
-                 onChange={e => this.change(e)} >
-                 <option value="email-id" selected="selected">Email</option>
-                 <option value="phone-Number">Phone Number</option>
-                 </select>
-                 <br />
-                 </div>      
-                 <div>
-                  
-                 <input
+                <div>
+                <input
                  name="phoneNumber"
-                 disabled = {(this.state.disabled ? "disabled" : "")}
                  placeholder="Phone Number " value={this.state.phoneNumber} 
                  onChange={e => this.change(e)} 
                 /> 
