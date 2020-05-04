@@ -32,7 +32,6 @@ export default class Form extends React.Component {
         password: "",selectValue:"email-id",errors: { name: '', email: '', phoneNumber: '', password: '',common:'' },
         loggedIn:false,disabled:true
     };
-     
     change = e => {
         e.preventDefault();
         this.setState({
@@ -83,16 +82,17 @@ export default class Form extends React.Component {
         var r=RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})");
         let v= r.test(this.state.password);
         var re =  RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
-        let val= re.test(email.value);
-        var letters =RegExp(/[a-zA-Z][a-zA-Z ]+[a-zA-Z]$/);
+        //var re =  RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/i);
+        let val= re.test(this.state.email);
+        var letters =RegExp(/[a-zA-Z][a-zA-Z ]*/);
         let v1= letters.test(this.state.name);
-        if (!email ){//&& !val) {
+        if (!email) {
           errors.email = 'Field cannot be empty';
         }
-        //else if(!val)
-        //{
-         // errors.email = 'Enter a valid email-id';
-        //}
+        else if(!val)
+        {
+          errors.email = 'Enter a valid email-id';
+        }
         if (!name) {
           errors.name = 'Name cannot be empty';
         }
@@ -155,11 +155,17 @@ axios({
               email:this.state.email,
               phoneNumber:this.state.phoneNumber} // True otherwise I receive another error
           }).then(response => {
-            if (response.data=="True") {
+            if (response.data==="True") {
               console.log( response);
               this.setState({loggedIn:true});
               console.log(this.state.loggedIn);
               //history.push("/Home");
+          }
+          else if(response.data!=="True"){
+           let errors = {common:''}
+           errors.common=response.data;
+           this.setState({errors})
+            console.log(this.state.errors.common);
           } 
             
           }).catch(error => {console.log(error);})
@@ -181,6 +187,12 @@ axios({
         const {errors} = this.state;
         if (this.state.loggedIn == true) {
           return <Redirect to="/signin" />;
+        }
+        if(this.state.errors.common.length > 0)
+        {
+        alert(this.state.errors.common)
+        window.location.reload(false);
+       // return <Redirect to="/signin" />
         }
           return (
           <div className='wrapper'>
@@ -252,6 +264,7 @@ axios({
             <Link to ="signin">Switch to Sign-in</Link>
             </div>
             </div>
+           
             
         );
         
