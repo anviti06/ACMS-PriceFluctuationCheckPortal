@@ -16,12 +16,12 @@ class Waitlist(db.Model):
     id = db.Column(db.Integer)
     pid = db.Column(db.Integer, primary_key = True)
     threshold = db.Column(db.Integer)
-"""
+
 class  Notification(db.Model):
     __tablename__ = 'notification'
     id = db.Column(db.Integer)
     pid = db.Column(db.Integer, primary_key = True)
-"""
+
 class Product(db.Model):
     __tablename__ = 'product'
     pid = db.Column(db.Integer, primary_key = True)
