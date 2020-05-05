@@ -1,9 +1,8 @@
-#For Creating Database on Local Server:
+ For Creating Database on Local Server:
   - (Open Terminal with backend File)
-  - python
+  - type --  python
     - from main import database
-    - db.create_all()
-  (database will be created)
+    - db.create_all()    
   - (to check the database)
   - sqlite3 database
     - .table
