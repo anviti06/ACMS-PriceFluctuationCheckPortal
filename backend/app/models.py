@@ -1,7 +1,10 @@
-from flask_login import UserMixin
-from main import db
 
-#Defining Databases
+"""
+Entire code of database and table creation will be written here
+"""
+from flask_login import UserMixin
+from . import db
+
 class User( UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key = True)
@@ -16,12 +19,7 @@ class Waitlist(db.Model):
     id = db.Column(db.Integer)
     pid = db.Column(db.Integer, primary_key = True)
     threshold = db.Column(db.Integer)
-
-class  Notification(db.Model):
-    __tablename__ = 'notification'
-    id = db.Column(db.Integer)
-    pid = db.Column(db.Integer, primary_key = True)
-
+        
 class Product(db.Model):
     __tablename__ = 'product'
     pid = db.Column(db.Integer, primary_key = True)
@@ -31,3 +29,4 @@ class Product(db.Model):
     img_file = db.Column(db.String(100))
     slug = db.Column(db.String(100))
     description = db.Column(db.String(100))
+
