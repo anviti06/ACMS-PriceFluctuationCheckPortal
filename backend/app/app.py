@@ -18,7 +18,7 @@ def create_app():
     db.init_app(app)
     
     #Importing Files
-    from .models import User,Product,Notification,Waitlist
+    from .models import User,Product,Waitlist
     from .notification import raise_notification
 
     #Forming user cookie - whenever we want we can use the currently working user as ' current_user '
@@ -61,6 +61,6 @@ def create_app():
         scheduler.add_job(check_price, 'interval', seconds=5)          
         scheduler.start()
         
-        #db.create_all()
+        db.create_all()
         return app
     
