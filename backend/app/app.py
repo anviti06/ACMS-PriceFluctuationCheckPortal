@@ -29,38 +29,14 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
-
-
-    with app.app_context():
-        def check_price():
-            with app.app_context():
-                waitlist_table = Waitlist.query.all()
-        
-                for row in waitlist_table:
-                    temp_product = Product.query.filter_by(pid = row.pid).first()
-                    #print(temp_product.name)
-                    if(temp_product.price <= row.threshold):
-                        #print("Found product")
-                        raise_notification(row.id , temp_product.pid)
-                    #else:
-                        #print("Not Found")
-            return
-
-
-
-
+    
         #Register Blueprint
         from .login import login_bp as login_blueprint
         app.register_blueprint(login_blueprint)
 
         from .home import home_bp as home_blueprint
         app.register_blueprint(home_blueprint)
-        
-        
-        #Initializing Scheduler - event will occur every 5 seconds
-        scheduler.add_job(check_price, 'interval', seconds=5)          
-        scheduler.start()
-        
-        db.create_all()
+            
+        #db.create_all()
         return app
     
