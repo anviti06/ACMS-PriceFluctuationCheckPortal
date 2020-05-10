@@ -36,6 +36,9 @@ def create_app():
 
         from .home import home_bp as home_blueprint
         app.register_blueprint(home_blueprint)
+        
+        from .get_product import prod_bp as product_blueprint
+        app.register_blueprint(product_blueprint)
             
         #db.create_all()
         return app
