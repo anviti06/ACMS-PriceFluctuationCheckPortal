@@ -8,11 +8,11 @@ import './Form.css';
   const initialState = {name: "",email: "", phoneNumber: "",disabled:true,
   password: "",selectValue:"",errors: { name: '', email: '', phoneNumber: '', password: '',common: '' },loggedIn:false
    };
-   
+  
    
 export default class Form extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     };
   componentDidMount() {
     console.log("done");
@@ -37,8 +37,10 @@ export default class Form extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
          });
-        /* console.log(this.state.selectValue);
-         if(this.state.selectValue==="phone-Number")
+         if(e.target.name=="selectValue")
+         {
+         console.log(this.state.selectValue);
+         if(this.state.selectValue=="email-id")
          {
          this.setState({disabled:false});
          console.log(this.state.selectValue);
@@ -46,7 +48,8 @@ export default class Form extends React.Component {
         else{
           this.setState({disabled:true});
         }
-        console.log(this.state.disabled);*/
+        console.log(this.state.disabled);
+      }
        /* let nam = e.target.name;
         let val = e.target.value;
         let errors=this.state.errors;
@@ -234,12 +237,12 @@ axios({
                 <div>
                 <h1>Receive notifications via:</h1>
                 <br />
-                 <select 
+                <select 
                  name="selectValue"
                  value={this.state.selectValue} 
                  onChange={e => this.change(e)} >
-                 <option value="email-id" selected="selected">Email</option>
-                 <option value="phone-Number">Phone Number</option>
+                 <option id="0" value="email-id" selected="selected">Email</option>
+                 <option id="1" value="phone-Number">Phone Number</option>
                  </select>
                  <br />
                  </div>      
