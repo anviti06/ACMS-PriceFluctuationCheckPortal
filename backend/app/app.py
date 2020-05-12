@@ -29,17 +29,44 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
-    
+
+
+    with app.app_context():
+        def check_price():
+            """ Scheduler takes up data from waitlist table and for suitable products call notification finction ,
+            Then deletes those entries from Waitlist table"""
+            with app.app_context():
+                waitlist_table = Waitlist.query.all()
+        
+                for row in waitlist_table:
+                    temp_product = Product.query.filter_by(pid = row.pid).first()
+                    #print(temp_product.name)
+                    if(temp_product and temp_product.price <= row.threshold):
+                        #print("Found product")
+                        if (raise_notification(row.id , temp_product.pid)):
+                            db.session.delete(temp_product)
+                            db.session.commit()
+                    else: 
+                        print("Waitlist Table is currently empty"
+            return
+
+
+
+
         #Register Blueprint
         from .login import login_bp as login_blueprint
         app.register_blueprint(login_blueprint)
 
         from .home import home_bp as home_blueprint
         app.register_blueprint(home_blueprint)
-        
+          
         from .get_product import prod_bp as product_blueprint
         app.register_blueprint(product_blueprint)
-            
-        #db.create_all()
+        
+        #Initializing Scheduler - event will occur every 30 seconds
+        scheduler.add_job(check_price, 'interval', seconds=30)          
+        scheduler.start()
+        
+        db.create_all()
         return app
     
