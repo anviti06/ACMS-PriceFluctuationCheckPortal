@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import './Toolbar.css';
 
-const toolbar = props => (
+const toolbar1 = props => (
   <header className="toolbar">
     <nav className="toolbar__navigation">
     <div></div>
@@ -13,11 +13,10 @@ const toolbar = props => (
       <div className="toolbar_navigation-items">
         <ul>
           <li>
-            <a href="/">Logout</a>
+          <Link to ="Home">Home</Link>
           </li>
           <li>
-          <Link to ="wishlist">WishList</Link>
-            
+            <a href="/">Logout</a>
           </li>
         </ul>
       </div>
@@ -25,4 +24,4 @@ const toolbar = props => (
   </header>
 )
 
-export default toolbar
+export default toolbar1
