@@ -1,0 +1,77 @@
+body{
+    background: radial-gradient(#e5e5e5,#ffff,#e5e5e5);
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 0;
+    padding: 5px;
+}
+
+.form-inline{
+    justify-content: center;
+    align-items: center;
+}
+.button1{
+    display: block;
+    justify-content: center;
+    align-self: center;
+    border-radius: 4px;
+    background-color: rebeccapurple;
+    font-size: 16px !important;
+    width:50% !important;
+    padding: 8px 24px;
+    margin-top: 5px;
+
+}
+.form-control{
+    padding: 8px 24px;
+}
+.button1:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+.card-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+.col-sm-4{
+    margin-top: 3rem ;
+    display:block;
+    background-color:rgb(214, 177, 213);
+    padding: 5px;
+    margin:25px 5px;
+    width:500px;
+    border: 3px;
+    border-color:rebeccapurple;
+    border-style: inset;
+    outline: none;
+    border-radius: 7px;
+}
+    
+
+.col-sm-4:hover{
+    box-shadow: 5px 10px 20px 1px rgba(0, 0, 0, 0.253)!important;
+    
+}
+.thumbnail:hover {
+    position:relative;
+    top:-25px;
+    left:-35px;
+    width:300px;
+    height:auto;
+    display:block;
+    z-index:999;
+}
+.cbody{
+    padding: 3rem 0!important;
+}
+.card-text{
+    font-size: .9rem;
+    padding: 0.4rem 1.9rem;
+}
+.c1{
+    padding-top: 6rem;
+}
