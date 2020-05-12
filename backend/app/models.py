@@ -30,3 +30,4 @@ class Product(db.Model):
     slug = db.Column(db.String(100))
     description = db.Column(db.String(100))
 
+    

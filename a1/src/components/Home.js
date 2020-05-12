@@ -23,6 +23,15 @@ export default class Home extends React.Component {
     this.change = this.change.bind(this);
   }
   componentDidMount() {
+<<<<<<< HEAD
+=======
+    this.getData();
+    this.interval = setInterval(() => {
+      this.getData();
+    }, 5000);
+  }
+  getData() {
+>>>>>>> 1ccc631dadfb2eeea3eb0dc4b90a0c9624a04000
     fetch('http://localhost:5000/product',{
       headers : { 
         'Content-Type': 'application/json',
@@ -41,6 +50,13 @@ export default class Home extends React.Component {
     
   }
   
+<<<<<<< HEAD
+=======
+ componentWillUnmount() {
+  clearInterval(this.interval);
+}
+  
+>>>>>>> 1ccc631dadfb2eeea3eb0dc4b90a0c9624a04000
   change = (index,e) => {
     e.preventDefault();
     const th=[...this.state.th];
@@ -126,7 +142,11 @@ export default class Home extends React.Component {
       this.state.data.map(({pid,name,mrp,price,description},index) => ( 
      <div className="col-sm-4" > 
       <div class="cards" key={index} >    
+<<<<<<< HEAD
         <div class="card-imd-top" ><img src={img_file} width="50%" className="thumbnail"/></div>   
+=======
+        <div class="card-imd-top" ><img src={img1} width="50%" className="thumbnail"/></div>   
+>>>>>>> 1ccc631dadfb2eeea3eb0dc4b90a0c9624a04000
          <div  class="card-title "><h4>{name}</h4></div> 
          <div className="card-body">
          <h5>MRP: {mrp}</h5> 
@@ -156,7 +176,13 @@ export default class Home extends React.Component {
     }</Carousel> </div>);
     
 }
+<<<<<<< HEAD
  
+=======
+
+
+  
+>>>>>>> 1ccc631dadfb2eeea3eb0dc4b90a0c9624a04000
 render(){
     return (
       <>
