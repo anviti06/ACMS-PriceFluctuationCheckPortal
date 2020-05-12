@@ -11,7 +11,8 @@ export default class signin extends React.Component {
         this.state= {
             userName: "",
             password: "",
-            loggedIn:false
+            loggedIn:false,
+            errors:{ userName: '', password: '', common: '',}
         };
     
         this.onSubmit = this.onSubmit.bind(this);
@@ -25,6 +26,7 @@ export default class signin extends React.Component {
         console.log(this.state.loggedIn);
         
       }
+      
     
     change = e => {
         
@@ -32,22 +34,48 @@ export default class signin extends React.Component {
            [e.target.name]: e.target.value
         });
     };
+    handleValidation = () => {
+      const { userName,password} = this.state;
+      let errors = { userName: '',password:'',common: ''};
+      if (!userName) {
+        errors.userName = 'Field cannot be empty';
+      }
+      if (!password) {
+        errors.password = 'Field cannot be empty';
+      }
+     
+      if (errors.userName.length>0||errors.password.length>0||errors.common.length>0)
+      {
+      this.setState({ errors });
+      return false;
+    }
+      return true;
+    } 
     onSubmit = e => {
         e.preventDefault();
-        let d = this.state.userName
-        
+        const isValid = this.handleValidation();
+       if (isValid) {
+        console.log(this.state);
+     
         axios({
           method: 'post',
           url: 'http://localhost:5000/signin',
           crossorigin: true,
           withCredentials: false,
-          data:{d} // True otherwise I receive another error
+          data:{email: this.state.userName,
+            password:this.state.password} // True otherwise I receive another error
         }).then(response => {
-          if (response.ok) {
+          if (response.data=="True") {
             console.log( response);
             this.setState({loggedIn:true});
             console.log(this.state.loggedIn);
             //history.push("/Home");
+        }
+        else if(response.data!=="True"){
+          let errors = {common:''}
+          errors.common=response.data;
+          this.setState({errors})
+           console.log(this.state.errors.common);
         }
           
         }).catch(error => {console.log(error);})
@@ -56,14 +84,23 @@ export default class signin extends React.Component {
         password: "",
         loggedIn:false
         });
+        if(this.state.errors.common.length > 0)
+          {
+          alert(this.state.errors.common)
+         // window.location.reload(false);
+  
+          }
+        }
         
       }
     render () {
+      const {errors} = this.state;
         if (this.state.loggedIn == true) {
             return <Redirect to="/Home" />;
           }
+          
         return (
-            
+           
         <div className='wrapper'>
           <div className='form-wrapper'>
             <h2>Sign In</h2>
@@ -73,9 +110,12 @@ export default class signin extends React.Component {
                 <input
                  type="userName"
                  name="userName"
-                 placeholder="USERNAME " value={this.state.userName} 
+                 placeholder="Email " value={this.state.userName} 
                  onChange={e => this.change(e)} 
                 /> 
+                <br />
+                {errors.userName.length > 0 && <span className='error' style={{color: "red"}}>{this.state.errors.userName}</span>}
+                <br />
                 </div>
                 
                 <br />
@@ -86,10 +126,13 @@ export default class signin extends React.Component {
                  placeholder="Password " value={this.state.password} 
                  onChange={e => this.change(e)} 
                 /> 
+                <br />
+                {errors.password.length > 0 && <span className='error' style={{color: "red"}}>{this.state.errors.password}</span>}
+                <br />
                 </div>
                 
                 <br />  
-                <button onClick ={e => this.onSubmit(e)}>Login</button>
+                <button type="submit" onClick ={e => this.onSubmit(e)}>Login</button>
                 </p>
             </form>
             </div>

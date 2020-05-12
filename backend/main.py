@@ -1,47 +1,9 @@
-from flask import (Flask, render_template, request,Blueprint)
+from flask import (Flask, render_template)
 from flask_cors import CORS,cross_origin
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, current_user, UserMixin
-from apscheduler.schedulers.background import BackgroundScheduler
-
-
+from flask import request
+from flask import jsonify
 app = Flask("__main__")
 
-#Defining Global variables
-scheduler = BackgroundScheduler()
-db = SQLAlchemy(app)
-
-#Defining App configurations
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database'
-app.config['CORS_HEADERS'] = 'Content-Type'
-
-
-#Registering Blueprints - For Home page
-from home import home_bp as home_blueprint
-app.register_blueprint(home_blueprint)
- 
-#Importing Databases
-from models import *
-
-#Registering Blueprints - For Login page
-from login import login_bp as login_blueprint
-app.register_blueprint(login_blueprint)
-
-#Login Manager
-login_manager = LoginManager()
-login_manager.login_view = 'login'
-login_manager.init_app(app)
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-    
-app.run(debug=True,host='0.0.0.0',port=5000)
-
-    
-
-"""
 @app.route("/")
 def my_index():
     return render_template("index.html",token="Hello   world")
@@ -49,13 +11,84 @@ def my_index():
 def get_query_from_react():
     data=request.get_json()
     print(data)
-    response="Whatever you wish too return"
+    response="True"
     return response
 @app.route('/signin', methods = ['POST'])
 def get_from_react():
     data=request.get_json()
     print(data)
-    response="Whatever you wish too return"
+    response="True"
     return response
-"""
-
+@app.route('/Home', methods = ['POST'])
+def get_qfrom_react():
+    data=request.get_json()
+    print(data)
+    response="True"
+    return response
+@app.route('/product', methods = ['GET'])
+def get_react():
+    data=[ 
+    {
+        "pid": 1,
+        "name": "im d best",
+        "img_file": "learn",
+        "mrp": "12-04-2017",
+        "price": "hello-world",
+        "description":"hi"
+    },
+    {
+        "pid": 2,
+        "name": " World",
+        "img_file": "learn",
+        "mrp": "12-04-2017",
+        "price": "hello-world",
+        "description":"hi"
+    },
+    {
+        "pid": 3,
+        "name": "Hel World",
+        "img_file": "learn",
+        "mrp": "12-04-2017",
+        "price": "hello-world",
+        "description":"hi"
+    },
+    {
+        "pid": 4,
+        "name": "Hello World",
+        "img_file": "learn",
+        "mrp": "12-04-2017",
+        "price": "hello-world",
+        "description":"hi"
+    },
+    {
+        "pid": 5,
+        "name": "ibest",
+        "img_file": "learn",
+        "mrp": "12-04-2017",
+        "price": "hello-world",
+        "description":"hi"
+    },
+    {
+        "pid": 6,
+        "name": "Helhar",
+        "img_file": "learn",
+        "mrp": "12-04-2017",
+        "price": "hello-world",
+        "description":"hi"
+    }
+    ,
+    {
+        "pid": 7,
+        "name": "Heljhj",
+        "img_file": "learn",
+        "mrp": "12-04-2017",
+        "price": "hello-world",
+        "description":"hi"
+    }
+]
+    print(data)
+    
+    return jsonify(data)
+app.run(debug=True,host='127.0.0.1',port=5000)
+flask_cors.CORS(app, resources={ r'/*': {'origins': "*"}}, supports_credentials=True)
+app.config['CORS_HEADERS'] = 'Content-Type'

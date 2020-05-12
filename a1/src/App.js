@@ -6,6 +6,7 @@ import history from './components/history';
 import Form from "./components/Form";
 import signin from "./components/signin";
 import Home from "./components/Home";
+import Wishlist from "./components/Wishlist";
 import {
   BrowserRouter as Router,
   Route,
@@ -33,6 +34,7 @@ class App extends React. Component {
         <Route exact path="/" component={Form} />
         <Route exact path="/signin" component={signin} />
         <Route exact path="/Home" component={Home} />
+        <Route exact path="/wishlist" component={Wishlist} />
       
     </Router>
         
