@@ -26,7 +26,7 @@ export default class Home extends React.Component {
     this.getData();
     this.interval = setInterval(() => {
       this.getData();
-    }, 5000);
+    }, 30000);
   }
   getData() {
     fetch('http://localhost:5000/product',{
@@ -136,6 +136,7 @@ export default class Home extends React.Component {
       this.state.data.map(({pid,name,mrp,price,description},index) => ( 
      <div className="col-sm-4" > 
       <div class="cards" key={index} >    
+        <div class="card-imd-top" ><img src={img1} width="50%" className="thumbnail"/></div>   
         <div class="card-imd-top" ><img src={img1} width="50%" className="thumbnail"/></div>   
          <div  class="card-title "><h4>{name}</h4></div> 
          <div className="card-body">
