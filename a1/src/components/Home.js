@@ -26,7 +26,7 @@ export default class Home extends React.Component {
     this.getData();
     this.interval = setInterval(() => {
       this.getData();
-    }, 5000);
+    }, 30000);
   }
   getData() {
     fetch('http://localhost:5000/product',{
