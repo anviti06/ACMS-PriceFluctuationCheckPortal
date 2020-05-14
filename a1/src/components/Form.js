@@ -49,35 +49,8 @@ export default class Form extends React.Component {
           this.setState({disabled:true});
         }
         console.log(this.state.disabled);
-      }
-       /* let nam = e.target.name;
-        let val = e.target.value;
-        let errors=this.state.errors;
-        if (nam === "firstName") {
-        if (val.length<2) {
-        errors.firstName="Field cannot be empty ";
-      }
-      }
-      if (nam === "phoneNumber") {
-        if (!Number(val)) {
-        errors.phoneNumber="It can contain only digits";
-      }
-      }
-      if (nam=="email") {
-       var re =  RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
-       let v= re.test(val);
-        if (!v) {
-         errors.email = 'invalid email';
-       }
-       }
-       this.setState({errors, [nam]: val});*/
-    //this.setState({errors, [nam]: val}, ()=> {  console.log(errors)})
-        
+      }     
     };
-    /*checkSaveButtton() {
-     
-      return (this.state.disabled ? "disabled" : "");
-    }*/
      
     handleValidation = () => {
         const { name,email, phoneNumber,password} = this.state;
@@ -135,19 +108,6 @@ export default class Form extends React.Component {
         if (isValid) {
           console.log(this.state);
           
-          //this.setState({ loggedIn:true });
-          /*let data = JSON.stringify({
-        password: this.state.password,
-        username: this.state.email
-    })
-*/
-/*var d = {
-  firstName: this.state.firstName,
-  lastName:this.state.lastName,
-  password:this.state.password,
-  email:this.state.email,
-  phoneNumber:this.state.phoneNumber
-}*/
 axios({
             method: 'post',
             url: 'http://localhost:5000/signup',
@@ -165,23 +125,13 @@ axios({
               //history.push("/Home");
           }
           else if(response.data!=="True"){
-           let errors = {common:''}
+           let errors = { name: '', email: '', phoneNumber: '', password: '',common:'' }
            errors.common=response.data;
            this.setState({errors})
             console.log(this.state.errors.common);
           } 
             
           }).catch(error => {console.log(error);})
-         /* axios.post('http://localhost:5000/signup',this.state.firstName).then (response => {console.log(response)}).catch(error => {console.log(error)});
-          
-         fetch("http://localhost:5000/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        firstName: this.state.firstName
-      })
-    }).then (response => {console.log(response)}).catch(error => {console.log(error)});;*/
-      // clear form
             this.setState(initialState);
     }
     };

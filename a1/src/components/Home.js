@@ -137,7 +137,6 @@ export default class Home extends React.Component {
      <div className="col-sm-4" > 
       <div class="cards" key={index} >    
         <div class="card-imd-top" ><img src={img1} width="50%" className="thumbnail"/></div>   
-        <div class="card-imd-top" ><img src={img1} width="50%" className="thumbnail"/></div>   
          <div  class="card-title "><h4>{name}</h4></div> 
          <div className="card-body">
          <h5>MRP: {mrp}</h5> 

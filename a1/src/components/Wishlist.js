@@ -145,7 +145,7 @@ export default class Wishlist extends React.Component {
          value={this.state.th[index]}
          onChange={e => this.change(index,e)} 
           />
-          <input type="submit" className="button1" value="Add item" id={index} key={index} />
+          <input type="submit" className="button1" value="Edit threshold" id={index} key={index} />
           
          </form>
         </div> 

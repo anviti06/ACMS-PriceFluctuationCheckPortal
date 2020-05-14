@@ -11,7 +11,7 @@ scheduler = BackgroundScheduler(daemon=True)
 
 def create_app():
     
-    app = Flask(__name__, instance_relative_config=False)
+    app = Flask(__name__, instance_relative_config=False,template_folder='../templates', static_folder='../static')
     app.config.from_object('config.Config')
 
     # Initialize Plugins
