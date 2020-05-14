@@ -125,7 +125,7 @@ plumber==1.5
 ply==3.11
 prometheus-client==0.6.0
 prompt-toolkit==2.0.9
-psutil==5.6.1
+psutil==5.6.6
 py==1.8.0
 PyAudio==0.2.11
 pyAudioAnalysis==0.2.5
