@@ -53,8 +53,8 @@ def create_app():
                         if (raise_notification(row.id , temp_product.pid)):
                             db.session.delete(row)
                             db.session.commit()
-                    else: 
-                        print("Scheduler Working")
+                    #else: 
+                        #print("Scheduler Working")
                     #else:
                         #print("Not Found")
             return
@@ -73,7 +73,7 @@ def create_app():
         app.register_blueprint(product_blueprint)
         
         #Initializing Scheduler - event will occur every 30 seconds
-        scheduler.add_job(check_price, 'interval', minutes = 1)          
+        scheduler.add_job(check_price, 'interval', seconds = 30)          
         scheduler.start()
         
         #db.create_all()
