@@ -12,7 +12,7 @@ export default class signin extends React.Component {
             userName: "",
             password: "",
             loggedIn:false,
-            errors:{ userName: '', password: '', common: '',}
+            errors:{ userName: '', password: '', common: ''}
         };
     
         this.onSubmit = this.onSubmit.bind(this);
@@ -51,48 +51,53 @@ export default class signin extends React.Component {
     }
       return true;
     } 
-    onSubmit = e => {
+    pRequest=async() =>{
+      try{
+       const config={ method: 'post',
+       url: 'http://localhost:5000/signin',
+       crossorigin: true,
+       withCredentials: false,
+       data:{email: this.state.userName,
+       password:this.state.password}}
+       let res=await axios(config)
+       console.log(res.data);
+       if (res.data==="True") {
+        console.log( res.data);
+        this.setState({loggedIn:true});
+        console.log(this.state.loggedIn);
+        }
+       else if(res.data!=="True"){
+        let errors = {userName: '', password: '',common:''}
+       errors.common=res.data;
+       this.setState({errors})
+       console.log(this.state.errors.common);
+      }
+    }
+      catch(error){
+       console.log(error);
+      }
+      console.log("hii")
+      if(this.state.errors.common.length>0)
+      {
+       const error=this.state.errors.common;
+       alert(error)
+       const errors ={userName:"",password:"",common:""};
+       this.setState({errors},()=>{console.log(this.state.errors);});
+       
+      }
+     }
+      onSubmit= (e) => {
         e.preventDefault();
         const isValid = this.handleValidation();
-       if (isValid) {
+        if (isValid) {
         console.log(this.state);
-     
-        axios({
-          method: 'post',
-          url: 'http://localhost:5000/signin',
-          crossorigin: true,
-          withCredentials: false,
-          data:{email: this.state.userName,
-            password:this.state.password} // True otherwise I receive another error
-        }).then(response => {
-          if (response.data=="True") {
-            console.log( response);
-            this.setState({loggedIn:true});
-            console.log(this.state.loggedIn);
-            //history.push("/Home");
-        }
-        else if(response.data!=="True"){
-          let errors = {common:''}
-          errors.common=response.data;
-          this.setState({errors})
-           console.log(this.state.errors.common);
-        }
-          
-        }).catch(error => {console.log(error);})
+        this.pRequest();
         this.setState({
-        userName: "",
-        password: "",
-        loggedIn:false
-        });
-        if(this.state.errors.common.length > 0)
-          {
-          alert(this.state.errors.common)
-         // window.location.reload(false);
-  
-          }
-        }
-        
-      }
+          userName: "",
+          password: "",
+          loggedIn:false
+          });}
+        };
     render () {
       const {errors} = this.state;
         if (this.state.loggedIn == true) {

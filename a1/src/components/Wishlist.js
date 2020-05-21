@@ -7,11 +7,10 @@ import './Home.css';
 import Toolbar1 from '../components/Toolbar1';
 import axios from 'axios';
 import Carousel from 'react-elastic-carousel';
-    //const count = Object.keys(Data).length;
-    //console.log(count);
+ 
 export default class Wishlist extends React.Component {
   state= {
-    productId: "",productName: "", threshold:"",th:[],
+    threshold:"",th:[],
     errors:{threshold:"",common:""},
     data:[]
   };
@@ -20,6 +19,7 @@ export default class Wishlist extends React.Component {
     super()
     this.onsubmit = this.onsubmit.bind(this);
     this.change = this.change.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
     this.getData();
@@ -102,6 +102,21 @@ export default class Wishlist extends React.Component {
      alert(error)
     }
    }
+   handleDelete = (index,e) => {
+    axios({
+      method: 'post',
+      url: 'http://localhost:5000/wishlist',
+      crossorigin: true,
+      withCredentials: false,
+      data:{del: "True",name:this.state.data[index].name,pid:this.state.data[index].pid} // True otherwise I receive another error
+      }).then(response => {
+      if (response.data==="True") {
+        console.log( response);
+       }
+    }).catch(error => {console.log(error);})
+    const data = this.state.data.filter(item => item.pid !== (index+1));
+    this.setState({ data });
+    };
     onsubmit= (index,e) => {
       e.preventDefault();
       this.setState({threshold:this.state.th[index]});
@@ -109,7 +124,7 @@ export default class Wishlist extends React.Component {
       if (isValid) {
       console.log(this.state);
       this.pRequest(index);
-      this.setState({productId: "",productName: "", threshold:""});
+      this.setState({threshold:""});
       const th=[...this.state.th];
       th[index]="";
       this.setState({th});
@@ -125,10 +140,10 @@ export default class Wishlist extends React.Component {
  _createCardsUI(){
   // var data = this.state.data;
   return(<div className="container"> <Carousel itemsToShow={4}  itemsToScroll={4} enableMouseSwipe={true} enableSwipe={true}>{
-     this.state.data.map(({pid,name,mrp,price,description},index) => ( 
+     this.state.data.map(({pid,name,mrp,price,description,img_file},index) => ( 
     <div className="col-sm-4" > 
      <div class="cards" key={index} >    
-       <div class="card-imd-top" ><img src={img1} width="50%" className="thumbnail"/></div>   
+       <div class="card-imd-top" ><img src={require('../assets/' + img_file + '.jpg')} width="50%" className="thumbnail"/></div>   
         <div  class="card-title "><h4>{name}</h4></div> 
         <div className="card-body">
         <h5>MRP: {mrp}</h5> 
@@ -145,8 +160,8 @@ export default class Wishlist extends React.Component {
          value={this.state.th[index]}
          onChange={e => this.change(index,e)} 
           />
-          <input type="submit" className="button1" value="Add item" id={index} key={index} />
-          
+          <input type="submit" className="button1" value="Edit threshold" id={index} key={index} />
+          <input type="button" className="button1" value="Remove product" id={index} onClick={e => {if(window.confirm('Delete the item?')){this.handleDelete(index,e)};}}/>
          </form>
         </div> 
        </div>  
