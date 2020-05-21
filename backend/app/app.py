@@ -1,7 +1,8 @@
 
-from flask import (Flask, render_template, request,Blueprint)
+from flask import (Flask, render_template, request,Blueprint, session)
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
+from datetime import timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 
 # Globally accessible libraries
@@ -25,6 +26,14 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'login'
     login_manager.init_app(app)
+    login_manager.refresh_view = 'relogin'
+    login_manager.needs_refresh_message = (u"Session timedout, please login again")
+    login_manager.needs_refresh_message_category = "info"
+
+
+    @app.before_request
+    def before_request():
+        app.permanent_session_lifetime = timedelta(minutes=40)
     
     @login_manager.user_loader
     def load_user(user_id):
@@ -45,7 +54,7 @@ def create_app():
                             db.session.delete(row)
                             db.session.commit()
                     else: 
-                        print("Scheduler Working - Waitlist Table is currently empty")
+                        print("Scheduler Working")
                     #else:
                         #print("Not Found")
             return
@@ -64,7 +73,7 @@ def create_app():
         app.register_blueprint(product_blueprint)
         
         #Initializing Scheduler - event will occur every 30 seconds
-        scheduler.add_job(check_price, 'interval', seconds=30)          
+        scheduler.add_job(check_price, 'interval', minutes = 1)          
         scheduler.start()
         
         #db.create_all()
