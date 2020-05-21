@@ -21,9 +21,7 @@ def update_price(product_pid,product_price):
     product_pid = int(product_pid)
     """ Updtaing the price of Product  - Permission (Admin Only)"""
     if(current_user.email == "admin@acms.com" and check_password_hash(current_user.password, "acms") ):
-        #prod = Product.query.filter_by(pid = product_pid).first()
         prod = Product.query.filter_by(pid = product_pid).update(dict(price=product_price))
-        #prod.price = product_price
         db.session.commit()
         prod = Product.query.filter_by(pid = product_pid).first()
         if prod.price != product_price:    
