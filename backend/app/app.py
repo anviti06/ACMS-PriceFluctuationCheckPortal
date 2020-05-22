@@ -33,24 +33,27 @@ def create_app():
 
     @app.before_request
     def before_request():
-        app.permanent_session_lifetime = timedelta(minutes=40)
+        app.permanent_session_lifetime = timedelta(seconds =10)
     
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-
+    """
+        Initializing Scheduler Function 
+    """
     with app.app_context():
         def check_price():
             with app.app_context():
+
                 waitlist_table = Waitlist.query.all()
-        
                 for row in waitlist_table:
                     temp_product = Product.query.filter_by(pid = row.pid).first()
                     #print(temp_product.name)
                     if(temp_product and temp_product.price <= row.threshold):
                         #print("Found product")
                         if (raise_notification(row.id , temp_product.pid)):
+                            #If Notifiaction Func has been called for particular product then deleting it from waitlist table
                             db.session.delete(row)
                             db.session.commit()
                     #else: 
@@ -69,9 +72,13 @@ def create_app():
         from .home import home_bp as home_blueprint
         app.register_blueprint(home_blueprint)
           
-        from .get_product import prod_bp as product_blueprint
+        from .homePageUpdate_dynamic import prod_bp as product_blueprint
         app.register_blueprint(product_blueprint)
         
+        from .priceUpdate_mocking import mock as mock_blueprint
+        app.register_blueprint(mock_blueprint)
+        
+
         #Initializing Scheduler - event will occur every 30 seconds
         scheduler.add_job(check_price, 'interval', seconds = 30)          
         scheduler.start()
