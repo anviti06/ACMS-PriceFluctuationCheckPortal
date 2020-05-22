@@ -12,7 +12,7 @@ backports.shutil-get-terminal-size==1.0.0
 bcrypt==3.1.7
 beautifulsoup4==4.7.1
 bitarray==0.8.3
-bleach==3.1.0
+bleach==3.1.4
 boto==2.49.0
 certifi==2019.3.9
 cffi==1.14.0
@@ -96,7 +96,7 @@ navigator-updater==0.2.1
 nbconvert==5.4.1
 nbformat==4.4.0
 networkx==2.2
-nltk==3.4
+nltk==3.4.5
 node==0.9.25
 nose==1.3.7
 notebook==5.7.8
@@ -125,7 +125,7 @@ plumber==1.5
 ply==3.11
 prometheus-client==0.6.0
 prompt-toolkit==2.0.9
-psutil==5.6.1
+psutil==5.6.6
 py==1.8.0
 PyAudio==0.2.11
 pyAudioAnalysis==0.2.5
@@ -185,7 +185,7 @@ tqdm==4.31.1
 traitlets==4.3.2
 tzlocal==2.1
 unicodecsv==0.14.1
-urllib3==1.24.1
+urllib3==1.24.2
 virtualenv==16.7.8
 virtualenv-clone==0.5.3
 wcwidth==0.1.7
