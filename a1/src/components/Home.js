@@ -133,10 +133,10 @@ export default class Home extends React.Component {
   _createCardsUI(){
    // var data = this.state.data;
    return(<div className="container"> <Carousel itemsToShow={4}  itemsToScroll={4} enableMouseSwipe={true} enableSwipe={true}>{
-      this.state.data.map(({pid,name,mrp,price,description},index) => ( 
+      this.state.data.map(({pid,name,mrp,price,description,img_file},index) => ( 
      <div className="col-sm-4" > 
       <div class="cards" key={index} >    
-        <div class="card-imd-top" ><img src={img1} width="50%" className="thumbnail"/></div>   
+        <div class="card-imd-top" ><img src={require('../assets/' + img_file + '.jpg')} width="50%" className="thumbnail"/></div>   
          <div  class="card-title "><h4>{name}</h4></div> 
          <div className="card-body">
          <h5>MRP: {mrp}</h5> 

@@ -14,19 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "/static/react/precache-manifest.1aa93c1c856c9fc6f5fbe9f2103fd2ee.js"
-=======
   "/static/react/precache-manifest.d9efc6ccfedb352843a0e3fc964c12ab.js"
->>>>>>> fae0b194976565a3eac79ffe910bdeccfcc23460
-=======
-  "/static/react/precache-manifest.b4b3fa15c6cc77657127be18232412e3.js"
->>>>>>> parent of fae0b19... images displayed
-=======
-  "/static/react/precache-manifest.b4b3fa15c6cc77657127be18232412e3.js"
->>>>>>> parent of fae0b19... images displayed
 );
 
 self.addEventListener('message', (event) => {
@@ -47,5 +35,5 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/static/react/index.html"), {
   
-  blacklist: [/^\/_/,/\/[^\/?]+\.[^\/]+$/],
+  blacklist: [/^\/_/,/\/[^/?]+\.[^/]+$/],
 });
