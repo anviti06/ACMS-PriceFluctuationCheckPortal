@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(50))
     email = db.Column(db.String(100))
     phoneNo = db.Column(db.String(15))
-    password = db.Column(db.String(50))
+    password = db.Column(db.String(40))
     notification = db.Column(db.String(10))
     # Relationships
     prods = db.relationship('Product', secondary='waitlist', backref=db.backref('user', lazy='dynamic'))
@@ -24,11 +24,11 @@ class Product(UserMixin, db.Model):
     # attributes
     pid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    mrp = db.Column(db.Float)
-    price = db.Column(db.Float)
+    mrp = db.Column(db.Integer)
+    price = db.Column(db.Integer)
     img_file = db.Column(db.String(100))
     slug = db.Column(db.String(100))
-    description = db.Column(db.Text)
+    description = db.Column(db.String(100))
     # Relationships
     users = db.relationship('User', secondary='waitlist', backref=db.backref('product', lazy='dynamic'))
 
@@ -38,6 +38,6 @@ class Waitlist(UserMixin, db.Model):
     # Attributes (Many-to-Many Mapping in this table)
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     pid = db.Column(db.Integer, db.ForeignKey('product.pid'), primary_key=True)
-    threshold = db.Column(db.Float)
+    threshold = db.Column(db.Integer)
 
 
