@@ -37,7 +37,6 @@ def signup():
     password = data['password']
     name = data['name']
     phoneNo = data['phoneNumber']
-        
     user = User.query.filter_by(email=email).first()
 
     if user:
