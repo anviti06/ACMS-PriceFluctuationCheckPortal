@@ -7,7 +7,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from twilio.rest import Client
 from .models import Product,User
-from config import SENDGRID_API_KEY , DEFAULT_MAIL ,TWILIO_ACCOUNT_SID ,TWILIO_AUTH_TOKEN ,PHONE_NO
+from config import SENDGRID_API_KEY , DEFAULT_MAIL ,TWILIO_ACCOUNT_SID ,TWILIO_AUTH_TOKEN ,PHONE_NO ,DUMMY_PNO
 
 def send_mail(prod ,user):
     message = Mail(
@@ -33,7 +33,7 @@ def send_sms(prod,user):
         client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
         message = client.messages.create(
-            to='+918368311499',
+            to=DUMMY_PNO, #user.phoneNo  #User Phone-number
             from_=PHONE_NO,
             body=("HEY " + str(user.name) +"! You can now buy "
                  + str(prod.name) + "!! Click on the link: https://www.amazon.in")

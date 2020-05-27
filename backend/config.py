@@ -21,6 +21,7 @@ DEFAULT_MAIL = ''  #Sender Mail id - authenticated as sender email with SENDGRID
 #MESSAGE API CREDENTIALS
 TWILIO_ACCOUNT_SID =''
 TWILIO_AUTH_TOKEN =''
-PHONE_NO ='' #Twilio phone number
+PHONE_NO ='' #Twilio phone number from which you send message
+DUMMY_PNO = '' #dummy phone number can be any registered number on which messages can be sent using TWILIO "TRIAL ACCOUNT"
 
 key = Config.SECRET_KEY
