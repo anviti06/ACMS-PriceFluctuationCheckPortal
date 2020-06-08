@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/static/react/css/main.4f87f01f.chunk.css",
-    "main.js": "/static/react/js/main.ab800dce.chunk.js",
-    "main.js.map": "/static/react/js/main.ab800dce.chunk.js.map",
+    "main.css": "/static/react/css/main.cb23a13f.chunk.css",
+    "main.js": "/static/react/js/main.f270cfbc.chunk.js",
+    "main.js.map": "/static/react/js/main.f270cfbc.chunk.js.map",
     "runtime-main.js": "/static/react/js/runtime-main.b44ffe5b.js",
     "runtime-main.js.map": "/static/react/js/runtime-main.b44ffe5b.js.map",
-    "js/2.1d1239bc.chunk.js": "/static/react/js/2.1d1239bc.chunk.js",
-    "js/2.1d1239bc.chunk.js.map": "/static/react/js/2.1d1239bc.chunk.js.map",
+    "js/2.359da047.chunk.js": "/static/react/js/2.359da047.chunk.js",
+    "js/2.359da047.chunk.js.map": "/static/react/js/2.359da047.chunk.js.map",
     "../../templates/index.html": "/static/react/../../templates/index.html",
-    "css/main.4f87f01f.chunk.css.map": "/static/react/css/main.4f87f01f.chunk.css.map",
-    "js/2.1d1239bc.chunk.js.LICENSE.txt": "/static/react/js/2.1d1239bc.chunk.js.LICENSE.txt",
+    "css/main.cb23a13f.chunk.css.map": "/static/react/css/main.cb23a13f.chunk.css.map",
+    "js/2.359da047.chunk.js.LICENSE.txt": "/static/react/js/2.359da047.chunk.js.LICENSE.txt",
     "media/JBLSpeaker.jpg": "/static/react/media/JBLSpeaker.bb62c7c8.jpg",
     "media/MobilePhone.jpg": "/static/react/media/MobilePhone.39a97e02.jpg",
     "media/Shoes.jpg": "/static/react/media/Shoes.49def769.jpg",
     "media/Stole.jpg": "/static/react/media/Stole.d9095361.jpg",
     "media/img1.jpg": "/static/react/media/img1.5f8d864f.jpg",
-    "media/logo.svg": "/static/react/media/logo.ee7cd8ed.svg",
+    "media/logo.svg": "/static/react/media/logo.5d5d9eef.svg",
     "media/shop.jpg": "/static/react/media/shop.010b631c.jpg",
-    "precache-manifest.b780b03e1eca760dd89aec549131c783.js": "/static/react/precache-manifest.b780b03e1eca760dd89aec549131c783.js",
+    "precache-manifest.a4f738fc691c87a931280edcc1b3e333.js": "/static/react/precache-manifest.a4f738fc691c87a931280edcc1b3e333.js",
     "service-worker.js": "/static/react/service-worker.js"
   },
   "entrypoints": [
     "js/runtime-main.b44ffe5b.js",
-    "js/2.1d1239bc.chunk.js",
-    "css/main.4f87f01f.chunk.css",
-    "js/main.ab800dce.chunk.js"
+    "js/2.359da047.chunk.js",
+    "css/main.cb23a13f.chunk.css",
+    "js/main.f270cfbc.chunk.js"
   ]
 }

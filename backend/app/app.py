@@ -1,5 +1,5 @@
 
-from flask import (Flask, render_template, request,Blueprint)
+from flask import (Flask, render_template, request,Blueprint,session)
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -23,16 +23,18 @@ def create_app():
 
     #Forming user cookie - whenever we want we can use the currently working user as ' current_user '
     login_manager = LoginManager()
-    login_manager.login_view = 'login'
+    login_manager.login_view = 'login_bp.signin'
     login_manager.init_app(app)
-    login_manager.refresh_view = 'relogin'
-    login_manager.needs_refresh_message = (u"Session timedout, please login again")
-    login_manager.needs_refresh_message_category = "info"
-
-
+    login_manager.refresh_view = 'login_bp.signin'
+    login_manager.refresh_message = (u"Session timedout, please login again")
+    
+    #Session Management - Session Expires after every 30 min
     @app.before_request
     def before_request():
-        app.permanent_session_lifetime = timedelta(seconds =10)
+        session.permanent = True
+        app.permanent_session_lifetime = timedelta(minutes = 30)
+        session.modified = True
+
     
     @login_manager.user_loader
     def load_user(user_id):
@@ -76,6 +78,9 @@ def create_app():
         
         from .priceUpdate_mocking import mock as mock_blueprint
         app.register_blueprint(mock_blueprint)
+
+        from .homepost import homepost_bp
+        app.register_blueprint(homepost_bp)
         
 
         #Initializing Scheduler - event will occur every 30 seconds
