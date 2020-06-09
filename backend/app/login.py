@@ -16,18 +16,20 @@ login_bp = Blueprint('login_bp', __name__)
 
 @login_bp.route('/signin' , methods = ['POST' , 'GET'])
 def signin():
-    data = request.get_json()
-    email = data['email']
-    password = data['password']
-    user = User.query.filter_by(email=email).first()
-      
-    if not user or not check_password_hash(user.password, password):
-        return "Invalid credentials.Try again!"
-    else:
-        login_user(user)
-        print(current_user.name)
-        return "True"
-
+    if request.method == "POST":
+        data = request.get_json()
+        #print(data)
+        email = data['email']
+        password = data['password']
+        user = User.query.filter_by(email=email).first()
+        
+        if not user or not check_password_hash(user.password, password):
+            return "Invalid credentials.Try again!"
+        else:
+            login_user(user)
+            return "True"
+    elif request.method == "GET":
+        return render_template("index.html" , token = "True")
  
 #Signup Portal#
 @login_bp.route('/signup', methods = ['POST' , 'GET'])
@@ -37,7 +39,6 @@ def signup():
     password = data['password']
     name = data['name']
     phoneNo = data['phoneNumber']
-        
     user = User.query.filter_by(email=email).first()
 
     if user:

@@ -1,8 +1,11 @@
-from flask import Blueprint, jsonify, json
-from flask_login import current_user, login_required
-from werkzeug.security import check_password_hash
+"""
+    Dynamically Updating the Home Page whenever a new Product is added in the 'product' table.
+
+"""
+
+from flask import Blueprint, jsonify
 from .models import db, Product
-from sqlalchemy import update
+
 prod_bp = Blueprint('prod_bp', __name__)
 
 @prod_bp.route('/product' , methods = ['GET'])
