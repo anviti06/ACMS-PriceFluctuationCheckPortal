@@ -10,7 +10,7 @@ import Carousel from 'react-elastic-carousel';
  
 export default class Wishlist extends React.Component {
   state= {
-    threshold:"",th:[],
+    cart:true, threshold:"",th:[],
     errors:{threshold:"",common:""},
     data:[]
   };
@@ -38,7 +38,13 @@ export default class Wishlist extends React.Component {
           return response.json()
       }).then((json) => {
           this.setState({data: json});
+          const count = Object.keys(json).length;
+          if(count==0)
+          this.setState({cart:false})
+          else
+          this.setState({cart:true})
           console.log(json);
+          console.log(this.state.cart);
       }).catch(error => {console.log(error);})
 }
  
@@ -124,7 +130,7 @@ export default class Wishlist extends React.Component {
       if (isValid) {
       console.log(this.state);
       this.pRequest(index);
-      this.setState({threshold:""});
+      this.setState({cart:true,threshold:""});
       const th=[...this.state.th];
       th[index]="";
       this.setState({th});
@@ -174,6 +180,11 @@ export default class Wishlist extends React.Component {
    
 }
 render(){
+  if (this.state.cart == false) {
+    return (
+      <h7>CART IS EMPTY</h7>
+    );
+    } 
     return (
       <>
       <Toolbar1/>
