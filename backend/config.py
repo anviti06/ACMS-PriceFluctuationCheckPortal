@@ -1,6 +1,10 @@
 from os import environ , path
 
-
+"""
+Admin Credentials: 
+email - dernli236@gmail.com
+password - !Admin123 
+"""
 
 class Config:
 

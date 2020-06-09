@@ -28,7 +28,7 @@ class App extends React. Component {
   render () {
     return (
       <div className="App">
-        <p>My Token = {window.token}</p>
+        
         <Router history={history}>
         
         <Route exact path="/" component={Form} />

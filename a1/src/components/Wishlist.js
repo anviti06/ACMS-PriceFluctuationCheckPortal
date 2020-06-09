@@ -146,7 +146,7 @@ export default class Wishlist extends React.Component {
  _createCardsUI(){
   // var data = this.state.data;
   return(<div className="container"> <Carousel itemsToShow={4}  itemsToScroll={4} enableMouseSwipe={true} enableSwipe={true}>{
-     this.state.data.map(({pid,name,mrp,price,description,img_file},index) => ( 
+     this.state.data.map(({pid,name,mrp,price,description,img_file,threshold},index) => ( 
     <div className="col-sm-4" > 
      <div class="cards" key={index} >    
        <div class="card-imd-top" ><img src={require('../assets/' + img_file + '.jpg')} width="50%" className="thumbnail"/></div>   
@@ -154,6 +154,7 @@ export default class Wishlist extends React.Component {
         <div className="card-body">
         <h5>MRP: {mrp}</h5> 
         <h6>Current Price: {price}</h6>
+        <h7>Current Threshold: {threshold}</h7>
         <p class="card-text" >{description}</p>  
         <form className="form-inline" onSubmit={e=>this.onsubmit(index,e)} key={index}>
          <input
