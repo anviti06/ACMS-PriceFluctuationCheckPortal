@@ -84,7 +84,7 @@ def create_app():
         
 
         #Initializing Scheduler - event will occur every 30 seconds
-        scheduler.add_job(check_price, 'interval', seconds = 30)          
+        scheduler.add_job(check_price, 'interval', seconds = 10)          
         scheduler.start()
         
         #db.create_all()

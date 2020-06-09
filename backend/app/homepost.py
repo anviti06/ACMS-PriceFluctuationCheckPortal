@@ -14,33 +14,31 @@ homepost_bp = Blueprint('homepost_bp', __name__)
 
 @homepost_bp.route('/Home' , methods = ['POST' , 'GET'])
 def homepost():
-	data = request.get_json()
-	threshold = data['threshold']
-	pid = data['pid']
-	#print(threshold)
-	#print(pid)
+	if request.method =="POST":
+		data = request.get_json()
+		threshold = data['threshold']
+		pid = data['pid']
+		
+		id= current_user.id
 
-	#print(current_user.id)
-	
-	id= current_user.id
-
-	prod = Product.query.filter_by(pid=pid).first()
-	if threshold == "":
-		return "enter a non-empty value!"
-	else:
-		lower = 0.3 * prod.mrp
-		if int(threshold) >= lower and int(threshold) <= prod.mrp:
-			qe = Waitlist.query.filter((Waitlist.id == id) , (Waitlist.pid == pid)).first()
-			if qe is None:
-				entry = Waitlist(id=id, pid=pid, threshold=threshold)
-				db.session.add(entry)
-				db.session.commit()
-				return "True"
-			else:
-				return "You already have this item in your waitlist . Check your waitlist to edit threshold."
+		prod = Product.query.filter_by(pid=pid).first()
+		if threshold == "":
+			return "enter a non-empty value!"
 		else:
-			return "Enter a value in range!"
-	
+			lower = 0.3 * prod.mrp
+			if int(threshold) >= lower and int(threshold) <= prod.mrp:
+				qe = Waitlist.query.filter((Waitlist.id == id) , (Waitlist.pid == pid)).first()
+				if qe is None:
+					entry = Waitlist(id=id, pid=pid, threshold=threshold)
+					db.session.add(entry)
+					db.session.commit()
+					return "True"
+				else:
+					return "You already have this item in your waitlist . Check your waitlist to edit threshold."
+			else:
+				return "Enter a value in range!"
+	else:
+		return render_template('index.html')
 	
 @homepost_bp.route('/customer',methods=['GET'])
 def get_cart():
@@ -51,13 +49,12 @@ def get_cart():
 	if mylist:
 		for pr in mylist:
 			data = Product.query.filter(Product.pid == pr.pid).first()
-			print("User id:")
-			print(id)
-			print("product id:")
-			print(data.pid)
+			print("Current Wishlist items are: )
+			print("User id:" + id)
+			print("product id:" + data.pid)
 			print("product name:"+data.name)
-			print("threshold:")
-			print(pr.threshold)
+			print("threshold:" + pr.threshold)
+
 			#sending product as well as threshold details
 			dict = {'pid':data.pid , 'name':data.name , 'mrp':data.mrp , 'price':data.price, 'img_file':data.img_file , 'slug': data.slug , 'description':data.description , 'threshold':pr.threshold}
 			prod.append(dict)
@@ -73,7 +70,7 @@ def wishlist():
 	dele = ""
 	pid = data['pid']
 	if 'threshold' in data:
-		print('threshold request')
+		#print('threshold request')
 		threshold = data['threshold']
 		print(threshold)
 		prod = Waitlist.query.filter((Waitlist.id == id) , (Waitlist.pid == pid)).first()
