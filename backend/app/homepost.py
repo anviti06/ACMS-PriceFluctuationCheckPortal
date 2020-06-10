@@ -49,11 +49,15 @@ def get_cart():
 	if mylist:
 		for pr in mylist:
 			data = Product.query.filter(Product.pid == pr.pid).first()
-			print("Current Wishlist items are: )
-			print("User id:" + id)
-			print("product id:" + data.pid)
-			print("product name:"+data.name)
-			print("threshold:" + pr.threshold)
+			print("Current Wishlist items are: ")
+			print("User id:")
+			print(id)
+			print("product id:")
+			print(data.pid)
+			print("product name:")
+			print(data.name)
+			print("threshold:")
+			print(pr.threshold)
 
 			#sending product as well as threshold details
 			dict = {'pid':data.pid , 'name':data.name , 'mrp':data.mrp , 'price':data.price, 'img_file':data.img_file , 'slug': data.slug , 'description':data.description , 'threshold':pr.threshold}
