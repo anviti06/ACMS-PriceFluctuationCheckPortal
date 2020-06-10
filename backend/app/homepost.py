@@ -49,7 +49,7 @@ def get_cart():
 	if mylist:
 		for pr in mylist:
 			data = Product.query.filter(Product.pid == pr.pid).first()
-			print("Current Wishlist items are: )
+			print("Current Wishlist items are: ")
 			print("User id:" + id)
 			print("product id:" + data.pid)
 			print("product name:"+data.name)
