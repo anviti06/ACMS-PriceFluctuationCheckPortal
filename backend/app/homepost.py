@@ -64,7 +64,9 @@ def get_cart():
 			prod.append(dict)
 		return jsonify(prod)
 	else:
-		return "No items in your list. Go to home to add items to your waitlits"
+		data = []
+		return jsonify(prod)
+		#return "No items in your list. Go to home to add items to your waitlits"
 
 @homepost_bp.route('/wishlist',methods = ['GET','POST'])
 def wishlist():
