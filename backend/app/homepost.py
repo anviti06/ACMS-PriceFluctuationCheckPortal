@@ -65,7 +65,7 @@ def get_cart():
 		return jsonify(prod)
 	else:
 		data = []
-		return jsonify(prod)
+		return jsonify(data)
 		#return "No items in your list. Go to home to add items to your waitlits"
 
 @homepost_bp.route('/wishlist',methods = ['GET','POST'])
