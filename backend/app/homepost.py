@@ -70,33 +70,36 @@ def get_cart():
 
 @homepost_bp.route('/wishlist',methods = ['GET','POST'])
 def wishlist():
-	data = request.get_json()
-	id = current_user
-	threshold = ""
-	dele = ""
-	pid = data['pid']
-	if 'threshold' in data:
-		#print('threshold request')
-		threshold = data['threshold']
-		print(threshold)
-		prod = Waitlist.query.filter((Waitlist.id == id) , (Waitlist.pid == pid)).first()
-		data = Product.query.filter_by(pid=prod.pid).first()
-		if threshold == "":
-			return "enter a non-empty value!"
-		else:
-			lower = 0.3 * data.mrp
-			if int(threshold) >= lower and int(threshold) <= data.mrp:
-				prod.threshold = threshold
-				db.session.commit()
-				return "True"
+	if(request.method == "POST") :
+		data = request.get_json()
+		id = current_user.id
+		threshold = ""
+		dele = ""
+		pid = data['pid']
+		if 'threshold' in data:
+			print('threshold request')
+			threshold = data['threshold']
+			print(threshold)
+			prod = Waitlist.query.filter((Waitlist.id == id) , (Waitlist.pid == pid)).first()
+			data = Product.query.filter_by(pid=prod.pid).first()
+			if threshold == "":
+				return "enter a non-empty value!"
 			else:
-				return "enter a value in range!"
+				lower = 0.3 * data.mrp
+				if int(threshold) >= lower and int(threshold) <= data.mrp:
+					prod.threshold = threshold
+					db.session.commit()
+					return "True"
+				else:
+					return "enter a value in range!"
 
-	if 'del' in data:
-		print('delete request')
-		
-		prod = Waitlist.query.filter((Waitlist.id == id) , (Waitlist.pid == pid)).first()
-		db.session.delete(prod)
-		db.session.commit()
-		return "True"
+		if 'del' in data:
+			print('delete request')
+			
+			prod = Waitlist.query.filter((Waitlist.id == id) , (Waitlist.pid == pid)).first()
+			db.session.delete(prod)
+			db.session.commit()
+			return "True"
+	else:
+		return render_template('index.html')
 	
