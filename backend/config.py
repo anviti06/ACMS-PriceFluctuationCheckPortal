@@ -7,6 +7,7 @@ class Config:
     TESTING = environ.get('TESTING')
     FLASK_DEBUG = environ.get('FLASK_DEBUG')
     SECRET_KEY = 'ACMS'
+    
 
     # Database
     SQLALCHEMY_DATABASE_URI = 'mysql://admin:acms_2021@database-1.ctsfs4q05mza.us-east-2.rds.amazonaws.com/ACMS'

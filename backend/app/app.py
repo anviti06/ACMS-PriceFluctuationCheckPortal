@@ -1,9 +1,10 @@
 
-from flask import (Flask, render_template, request,Blueprint,session)
+from flask import (Flask, render_template, request,Blueprint,session , redirect , url_for)
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import timedelta
+import datetime
 # Globally accessible libraries
 db = SQLAlchemy()
 scheduler = BackgroundScheduler(daemon=True)    
@@ -13,9 +14,13 @@ def create_app():
     
     app = Flask(__name__, instance_relative_config=False,template_folder='../templates', static_folder='../static')
     app.config.from_object('config.Config')
-
+   
+    #Session Management - Session Expires after every 30 min
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(seconds = 10)
+   
     # Initialize Plugins
     db.init_app(app)
+    
     
     #Importing Files
     from .models import User,Product,Waitlist
@@ -28,17 +33,12 @@ def create_app():
     login_manager.refresh_view = 'login_bp.signin'
     login_manager.refresh_message = (u"Session timedout, please login again")
     
-    #Session Management - Session Expires after every 30 min
-    @app.before_request
-    def before_request():
-        session.permanent = True
-        app.permanent_session_lifetime = timedelta(minutes = 30)
-        session.modified = True
-
-    
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
+
+
+
 
     """
         Initializing Scheduler Function 
@@ -50,19 +50,12 @@ def create_app():
                 waitlist_table = Waitlist.query.all()
                 for row in waitlist_table:
                     temp_product = Product.query.filter_by(pid = row.pid).first()
-                    #print(temp_product.name)
                     if(temp_product and temp_product.price <= row.threshold):
-                        #print("Found product")
                         if (raise_notification(row.id , temp_product.pid)):
                             #If Notifiaction Func has been called for particular product then deleting it from waitlist table
-                            db.session.delete(row)
-                            db.session.commit()
-                    #else: 
-                        #print("Scheduler Working")
-                    #else:
-                        #print("Not Found")
+                            temp_product.isActive = False
             return
-
+        
 
 
 
@@ -84,9 +77,19 @@ def create_app():
         
 
         #Initializing Scheduler - event will occur every 30 seconds
-        scheduler.add_job(check_price, 'interval', seconds = 10)          
+        scheduler.add_job(check_price, 'interval', seconds = 30)          
+        
         scheduler.start()
         
+
+        #Error Handler
+        """
+        @app.errorhandler(500)
+        def internal_error(exception):
+            app.logger.error(exception)
+            return redirect(url_for(login_bp.signin))
+        
+        """
         #db.create_all()
         return app
-    
+        

@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/react/css/main.cb23a13f.chunk.css",
-    "main.js": "/react/js/main.34156036.chunk.js",
-    "main.js.map": "/react/js/main.34156036.chunk.js.map",
-    "runtime-main.js": "/react/js/runtime-main.baf8f1fb.js",
-    "runtime-main.js.map": "/react/js/runtime-main.baf8f1fb.js.map",
-    "js/2.c75af05b.chunk.js": "/react/js/2.c75af05b.chunk.js",
-    "js/2.c75af05b.chunk.js.map": "/react/js/2.c75af05b.chunk.js.map",
-    "../../templates/index.html": "/react/../../templates/index.html",
-    "css/main.cb23a13f.chunk.css.map": "/react/css/main.cb23a13f.chunk.css.map",
-    "js/2.c75af05b.chunk.js.LICENSE.txt": "/react/js/2.c75af05b.chunk.js.LICENSE.txt",
-    "media/JBLSpeaker.jpg": "/react/media/JBLSpeaker.bb62c7c8.jpg",
-    "media/MobilePhone.jpg": "/react/media/MobilePhone.39a97e02.jpg",
-    "media/Shoes.jpg": "/react/media/Shoes.49def769.jpg",
-    "media/Stole.jpg": "/react/media/Stole.d9095361.jpg",
-    "media/img1.jpg": "/react/media/img1.5f8d864f.jpg",
-    "media/logo.svg": "/react/media/logo.5d5d9eef.svg",
-    "media/shop.jpg": "/react/media/shop.010b631c.jpg",
-    "precache-manifest.258c22f722ed5c0c34730baff8d3d950.js": "/react/precache-manifest.258c22f722ed5c0c34730baff8d3d950.js",
-    "service-worker.js": "/react/service-worker.js"
+    "main.css": "/static/react/css/main.cb23a13f.chunk.css",
+    "main.js": "/static/react/js/main.43c1d3b6.chunk.js",
+    "main.js.map": "/static/react/js/main.43c1d3b6.chunk.js.map",
+    "runtime-main.js": "/static/react/js/runtime-main.b44ffe5b.js",
+    "runtime-main.js.map": "/static/react/js/runtime-main.b44ffe5b.js.map",
+    "js/2.359da047.chunk.js": "/static/react/js/2.359da047.chunk.js",
+    "js/2.359da047.chunk.js.map": "/static/react/js/2.359da047.chunk.js.map",
+    "../../templates/index.html": "/static/react/../../templates/index.html",
+    "css/main.cb23a13f.chunk.css.map": "/static/react/css/main.cb23a13f.chunk.css.map",
+    "js/2.359da047.chunk.js.LICENSE.txt": "/static/react/js/2.359da047.chunk.js.LICENSE.txt",
+    "media/JBLSpeaker.jpg": "/static/react/media/JBLSpeaker.bb62c7c8.jpg",
+    "media/MobilePhone.jpg": "/static/react/media/MobilePhone.39a97e02.jpg",
+    "media/Shoes.jpg": "/static/react/media/Shoes.49def769.jpg",
+    "media/Stole.jpg": "/static/react/media/Stole.d9095361.jpg",
+    "media/img1.jpg": "/static/react/media/img1.5f8d864f.jpg",
+    "media/logo.svg": "/static/react/media/logo.5d5d9eef.svg",
+    "media/shop.jpg": "/static/react/media/shop.010b631c.jpg",
+    "precache-manifest.dd52d09d56a348a2e3ee787e4280d95f.js": "/static/react/precache-manifest.dd52d09d56a348a2e3ee787e4280d95f.js",
+    "service-worker.js": "/static/react/service-worker.js"
   },
   "entrypoints": [
-    "js/runtime-main.baf8f1fb.js",
-    "js/2.c75af05b.chunk.js",
+    "js/runtime-main.b44ffe5b.js",
+    "js/2.359da047.chunk.js",
     "css/main.cb23a13f.chunk.css",
-    "js/main.34156036.chunk.js"
+    "js/main.43c1d3b6.chunk.js"
   ]
 }
