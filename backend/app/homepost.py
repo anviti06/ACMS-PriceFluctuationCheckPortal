@@ -7,9 +7,7 @@ from .app import db
 from sqlalchemy import update
 
 
-
 homepost_bp = Blueprint('homepost_bp', __name__)
-
 
 
 @homepost_bp.route('/Home' , methods = ['POST' , 'GET'])
