@@ -7,9 +7,7 @@ from .app import db
 from sqlalchemy import update
 
 
-
 homepost_bp = Blueprint('homepost_bp', __name__)
-
 
 
 @homepost_bp.route('/Home' , methods = ['POST' , 'GET'])
@@ -62,18 +60,16 @@ def get_cart():
 @homepost_bp.route('/wishlist',methods = ['GET','POST'])
 @fresh_login_required
 def wishlist():
-	
-	if request.method =="POST" and current_user.is_authenticated:
-
+	if(request.method == "POST") :
 		data = request.get_json()
-		id = current_user
+		id = current_user.id
 		threshold = ""
 		dele = ""
 		pid = data['pid']
 		if 'threshold' in data:
 			#print('threshold request')
-			threshold = data['threshold']
-			print(threshold)
+			#threshold = data['threshold']
+			#print(threshold)
 			prod = Waitlist.query.filter((Waitlist.id == id) , (Waitlist.pid == pid)).first()
 			data = Product.query.filter_by(pid=prod.pid).first()
 			if threshold == "":
@@ -89,7 +85,7 @@ def wishlist():
 
 		if 'del' in data:
 			print('delete request')
-		
+			
 			prod = Waitlist.query.filter((Waitlist.id == id) , (Waitlist.pid == pid)).first()
 			db.session.delete(prod)
 			db.session.commit()

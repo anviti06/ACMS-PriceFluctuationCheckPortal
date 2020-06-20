@@ -14,7 +14,6 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100))
     phoneNo = db.Column(db.String(15))
     password = db.Column(db.String(40))
-    notification = db.Column(db.String(10))
     isActive = db.Column(db.Boolean)
     # Relationships
     prods = db.relationship('Product', secondary='waitlist', backref=db.backref('user', lazy='dynamic'))

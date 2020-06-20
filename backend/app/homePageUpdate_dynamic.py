@@ -22,5 +22,5 @@ def get_product():
     else:
         print("session expired")
         logout_user()
-        return redirect(url_for('login_bp.signin'))
+        return jsonify(data)#redirect(url_for('login_bp.signin'))
 

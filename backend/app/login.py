@@ -25,9 +25,10 @@ def signin():
         
         if not user or not check_password_hash(user.password, password):
             return "Invalid credentials.Try again!"
+        elif user.isActive is False:
+            return "Your Account has been Deactivated! Contact the Administrator for futher details"
         else:
             login_user(user ,remember=False)
-        
             return "True"
     elif request.method == "GET":
         return render_template("index.html" , token = "True")
@@ -44,7 +45,6 @@ def signup():
 
     if user:
         return "User already exists"
-    
     new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'),
                     phoneNo = phoneNo, isActive = True)
 

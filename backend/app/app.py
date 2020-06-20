@@ -5,6 +5,9 @@ from flask_login import LoginManager, current_user
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import timedelta
 import datetime
+import logging
+
+
 # Globally accessible libraries
 db = SQLAlchemy()
 scheduler = BackgroundScheduler(daemon=True)    
@@ -17,7 +20,7 @@ def create_app():
    
     #Session Management - Session Expires after every 30 min
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(seconds = 10)
-   
+    logging.basicConfig(filename='demo.log',level=logging.DEBUG)
     # Initialize Plugins
     db.init_app(app)
     
@@ -83,13 +86,14 @@ def create_app():
         
 
         #Error Handler
-        """
+        
         @app.errorhandler(500)
         def internal_error(exception):
             app.logger.error(exception)
-            return redirect(url_for(login_bp.signin))
+            print("Error Occured")
+            return redirect(url_for(login_blueprint.signin))
         
-        """
+        
         #db.create_all()
         return app
         
